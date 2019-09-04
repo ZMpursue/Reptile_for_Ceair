@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reptile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=S0m0FgYzW7CnV8QpTmbGUrqai8g0XgjF"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+
+    <style>
+        div.one
+        {
+        position:fixed;
+        top:300px;
+        width:100px;
+        left:75%;
+        }
+        div.two
+        {
+        position:fixed;
+        top:300px;
+        left:25%;
+        width:45%;
+        }
+        div.three
+        {
+        position:fixed;
+        top:0px;
+        height:100%;
+        width:100%;
+        }
+        p.title
+        {
+        position:fixed;
+        top:-80px;
+        left:10%;
+        width:80%;
+        text-align:center;
+        color:white;
+        font-size:120px;
+        font-family:Arial,Helvetica,sans-serif;
+        }
+        p.index
+        {
+        position:fixed;
+        top:85%;
+        left:30%;
+        width:40%;
+        color:white;
+        text-align:center;
+        font-size:30px;
+        font-family:Arial,Helvetica,sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+<div class="three" id="container"></div>
+<div data-role="main" class="ui-content">
+    <form method="post">
+        <fieldset data-role="fieldcontain">
+<!--        <label for="airport">选择机场</label>-->
+        <div class="two"><select name="Airport" id="airport">
+        <option value="SHA" class="select">上海 虹桥机场</option><option value="PVG">上海 浦东机场</option><option value="KMG">昆明 昆明长水机场</option><option value="PEK">北京 首都机场</option><option value="XIY">西安 咸阳机场</option><option value="CAN">广州 白云机场</option><option value="CTU">成都 双流机场</option><option value="NKG">南京 禄口机场</option><option value="HGH">杭州 萧山机场</option><option value="WUH">武汉 天河机场</option><option value="CKG">重庆 江北机场</option><option value="SZX">深圳 宝安机场</option><option value="TAO">青岛 流亭机场</option><option value="XMN">厦门 高崎机场</option><option value="TYN">太原 武宿机场</option><option value="LHW">兰州 中川机场</option><option value="CGO">郑州 新郑机场</option><option value="CSX">长沙 黄花机场</option><option value="KHN">南昌 昌北机场</option><option value="NGB">宁波 栎社机场</option><option value="WNZ">温州 龙湾机场</option><option value="SYX">三亚 凤凰机场</option><option value="HRB">哈尔滨 太平机场</option><option value="HFE">合肥 新桥机场</option><option value="DLC">大连 周水子机场</option><option value="INC">银川 河东机场</option><option value="NAY">北京 南苑机场</option><option value="WUX">无锡 硕放机场</option><option value="XNN">西宁 曹家堡机场</option><option value="SHE">沈阳 桃仙机场</option><option value="YNT">烟台 蓬莱机场</option><option value="URC">乌鲁木齐 地窝堡机场</option><option value="DLU">大理 大理机场</option><option value="CGQ">长春 龙嘉机场</option><option value="CZX">常州 常州奔牛机场</option><option value="NNG">南宁 吴圩机场</option><option value="KWE">贵阳 龙洞堡机场</option><option value="HAK">海口 美兰机场</option><option value="ZUH">珠海 金湾机场</option><option value="TSN">天津 滨海机场</option><option value="JHG">西双版纳 嘎洒机场</option><option value="HET">呼和浩特 白塔机场</option><option value="KWL">桂林 两江机场</option><option value="TNA">济南 遥墙机场</option><option value="LJG">丽江 三义机场</option><option value="SWA">揭阳 潮汕机场</option><option value="FOC">福州 长乐机场</option><option value="DSN">鄂尔多斯 伊金霍洛机场</option><option value="LYI">临沂 沭埠岭机场</option><option value="LXA">拉萨 贡嘎机场</option><option value="HKG">香港（中国香港） 香港赤鱲角机场</option><option value="LUM">芒市 芒市机场</option><option value="LYA">洛阳 北郊机场</option><option value="ZHA">湛江 湛江机场</option><option value="BSD">保山 保山云瑞机场</option><option value="DIG">香格里拉 迪庆香格里拉机场</option><option value="LNJ">临沧 临沧机场</option><option value="LZO">泸州 泸州云龙机场</option><option value="YNJ">延吉 朝阳川机场</option><option value="BAV">包头 包头东河机场</option><option value="HIA">淮安 涟水机场</option><option value="LZH">柳州 白莲机场</option><option value="SJW">石家庄 正定机场</option><option value="JZH">九寨沟 黄龙机场</option><option value="YIH">宜昌 三峡机场</option><option value="LYG">连云港 白塔阜机场</option><option value="WEH">威海 大水泊机场</option><option value="JGN">嘉峪关 嘉峪关机场</option><option value="YNZ">盐城 南洋机场</option><option value="SYM">普洱 思茅机场</option><option value="CIF">赤峰 玉龙机场</option><option value="HLD">海拉尔 东山机场</option><option value="KOW">赣州 黄金机场</option><option value="JGS">井冈山 井冈山机场</option><option value="TCZ">腾冲 驼峰机场</option><option value="TXN">黄山 屯溪机场</option><option value="UYN">榆林 榆阳机场</option><option value="HDG">邯郸 邯郸机场</option><option value="YBP">宜宾 菜坝机场</option><option value="DNH">敦煌 敦煌机场</option><option value="DYG">张家界 荷花机场</option><option value="MFM">澳门（中国澳门） 澳门（中国澳门）</option><option value="ZYI">遵义 遵义机场</option><option value="NDG">齐齐哈尔 三家子机场</option><option value="ZAT">昭通 昭通机场</option><option value="LLV">吕梁 大武机场</option><option value="YUS">玉树 巴塘机场</option><option value="XIC">西昌 青山机场</option><option value="JNZ">锦州 锦州湾机场</option><option value="BHY">北海 福城机场</option><option value="NAO">南充 高坪机场</option><option value="YCU">运城 关公机场</option><option value="MDG">牡丹江 海浪机场</option><option value="MIG">绵阳 南郊机场</option><option value="TGO">通辽 通辽机场</option><option value="FUG">阜阳 阜阳机场</option><option value="GOQ">格尔木 格尔木机场</option><option value="TEN">铜仁 铜仁凤凰机场</option><option value="TSA">台北（中国台湾） 台北松山机场</option><option value="DCY">稻城 稻城亚丁机场</option><option value="WNH">文山 普者黑机场</option><option value="ENH">恩施 许家坪机场</option><option value="HYN">台州 路桥机场</option><option value="JNG">济宁 曲阜机场</option><option value="DAT">大同 云冈机场</option><option value="DQA">大庆 萨尔图机场</option><option value="HSN">舟山 普陀山机场</option><option value="TPE">台北（中国台湾） 台北桃园机场</option><option value="DDG">丹东 浪头机场</option><option value="KHG">喀什 喀什机场</option><option value="AOG">鞍山 鞍山腾鳌机场</option><option value="AVA">安顺 黄果树机场</option><option value="NBS">长白山 长白山机场</option><option value="LLF">永州 零陵机场</option><option value="DOY">东营 胜利机场</option><option value="HZG">汉中 城固机场</option><option value="TVS">唐山 三女河机场</option><option value="JMU">佳木斯 佳木斯机场</option><option value="FUO">佛山 沙堤机场</option><option value="GYS">广元 盘龙机场</option><option value="ZQZ">张家口 宁远机场</option><option value="AQG">安庆 安庆机场</option><option value="HEK">黑河 黑河机场</option><option value="HLH">乌兰浩特 乌兰浩特机场</option><option value="CHG">朝阳 朝阳机场</option><option value="LDS">伊春 伊春林机场</option><option value="XIL">锡林浩特 锡林浩特机场</option><option value="ACX">兴义 兴义机场</option><option value="KGT">康定 康定机场</option><option value="WXN">万州 五桥机场</option><option value="JGD">加格达奇 加格达奇机场</option><option value="CJU">济州岛 济州岛</option><option value="JXA">鸡西 兴凯湖机场</option><option value="WUS">武夷山 武夷山机场</option><option value="WUA">乌海 乌海机场</option><option value="ENY">延安 延安南泥湾机场</option><option value="DAX">达州 河市机场</option><option value="HNY">衡阳 南岳机场</option><option value="OKA">冲绳 冲绳</option><option value="AEB">百色 巴马机场</option><option value="TNH">通化 通化</option><option value="HPG">神农架 红坪机场</option><option value="NNY">南阳 姜营机场</option><option value="OHE">漠河 古莲机场</option><option value="JIQ">黔江 武陵山机场</option><option value="FUK">福冈 福冈</option><option value="HNL">火奴鲁鲁 夏威夷火奴鲁鲁机场</option><option value="IQN">庆阳 庆阳机场</option><option value="HKT">普吉岛 普吉岛</option><option value="PUS">釜山 釜山</option><option value="XFN">襄阳 刘集机场</option><option value="NZH">满洲里 满洲里</option><option value="LAX">洛杉矶 洛杉矶</option><option value="CDG">巴黎 巴黎戴高乐机场</option><option value="NGO">名古屋 名古屋</option><option value="CTS">札幌 札幌</option><option value="JFK">纽约 纽约肯尼迪机场</option><option value="BFJ">毕节 飞雄机场</option><option value="DPS">巴厘岛 巴厘岛</option><option value="RIZ">日照 山字河机场</option><option value="SIN">新加坡 新加坡</option><option value="HND">东京 东京羽田机场</option><option value="FCO">罗马 菲乌米奇诺机场</option><option value="MEL">墨尔本 墨尔本(澳大利亚)</option><option value="VTE">万象 万象</option><option value="BKK">曼谷 曼谷素万那普机场</option><option value="PNH">金边 金边</option><option value="KRL">库尔勒 库尔勒机场</option><option value="SYD">悉尼（澳大利亚） 悉尼金斯福德·史密斯机场</option><option value="JIC">金昌 金川机场</option><option value="KUL">吉隆坡 吉隆坡</option><option value="HZH">黎平 西郊机场</option><option value="YYZ">多伦多 多伦多皮尔逊机场</option><option value="HXD">德令哈 德令哈机场</option><option value="SFO">旧金山 旧金山机场</option><option value="SGN">胡志明市 胡志明市</option><option value="MDL">曼德勒 曼德勒</option><option value="JUZ">衢州 衢州机场</option><option value="RGN">仰光 仰光</option><option value="LHR">伦敦 伦敦希思罗机场</option><option value="REP">暹粒 暹粒</option><option value="YVR">温哥华 温哥华</option><option value="TAE">大邱 大邱</option><option value="NLH">泸沽湖 泸沽湖</option><option value="CMB">科伦坡 科伦坡</option><option value="FRA">法兰克福 法兰克福</option><option value="CCU">加尔各答 加尔各答</option><option value="ORD">芝加哥 奥黑尔机场</option><option value="MNL">马尼拉 马尼拉</option><option value="NGQ">阿里 阿里昆莎机场</option><option value="KIX">大阪 关西机场</option><option value="KBV">甲米 甲米机场</option><option value="DAC">达卡 达卡</option><option value="FSZ">静冈 静冈</option><option value="YIE">阿尔山 阿尔山伊尔施机场</option><option value="HTN">和田 和田机场</option><option value="HIJ">广岛 广岛</option><option value="DEL">新德里 新德里</option><option value="KMQ">小松 小松</option><option value="BKI">沙巴（马来西亚） 沙巴(哥打基纳巴卢)</option><option value="OKJ">冈山 冈山</option><option value="NYT">内比都 内比都机场</option><option value="DXB">迪拜 迪拜</option><option value="KHH">高雄（中国台湾） 高雄</option><option value="SVO">莫斯科 谢列梅杰沃机场</option><option value="KTM">加德满都 加德满都</option><option value="KOJ">鹿儿岛 鹿儿岛</option><option value="CNS">凯恩斯 凯恩斯机场</option><option value="SEA">西雅图 西雅图机场</option><option value="HAN">河内 河内</option><option value="MLE">马累 马尔代夫</option><option value="GMP">首尔 金浦</option><option value="KIJ">新泻 新泻</option><option value="NGS">长崎 长崎</option><option value="BNE">布里斯班 布里斯班</option><option value="MYJ">日本松山 松山</option><option value="DTW">底特律 底特律都会韦恩县机场</option><option value="HMI">哈密 哈密机场</option><option value="MWX">务安 务安机场</option><option value="DAD">岘港 岘港</option><option value="YKH">营口 营口兰旗机场</option><option value="SPN">塞班 塞班</option><option value="AKL">奥克兰（新西兰） 奥克兰</option><option value="TOY">富山 富山</option><option value="CEI">清莱 清莱</option><option value="AKJ">旭川 旭川</option><option value="LPF">六盘水 月照机场</option><option value="YIW">义乌 义乌机场</option><option value="LGA">纽约 拉瓜尔迪亚机场</option><option value="CNX">清迈 清迈</option><option value="BOS">波士顿 波士顿机场</option><option value="PRG">布拉格 布拉格机场</option><option value="CHC">基督城 基督城</option><option value="ATL">亚特兰大 亚特兰大机场</option><option value="MAD">马德里 马德里</option><option value="SAN">圣地亚哥（美国） 圣迭戈机场</option><option value="IAD">华盛顿 华盛顿杜勒斯机场</option><option value="MCO">奥兰多 奥兰多机场</option><option value="AMS">阿姆斯特丹 阿姆斯特丹</option><option value="YWG">温尼伯 温尼伯</option><option value="LPQ">琅勃拉邦 琅勃拉邦</option><option value="RDU">罗利 达勒姆机场</option><option value="CGK">雅加达 索埃卡尔诺－哈塔机场</option><option value="BCN">巴塞罗那 巴塞罗那</option><option value="BHX">伯明翰(英国) 伯明翰</option><option value="MIA">迈阿密 迈阿密机场</option><option value="ATH">雅典 雅典</option><option value="YEG">埃德蒙顿 埃德蒙顿机场</option><option value="YYC">卡尔加里 卡尔加里</option><option value="AUS">奥斯汀 奥斯汀机场</option><option value="SLC">盐湖城 盐湖</option><option value="DFW">达拉斯 达拉斯机场</option><option value="CMH">哥伦布 哥伦布机场</option><option value="LAS">拉斯维加斯 麦卡伦机场</option><option value="LYS">里昂 里昂</option><option value="MSP">明尼阿波里斯 明尼阿波利斯—圣保罗机场</option><option value="PHX">凤凰城 凤凰城机场</option><option value="MAN">曼彻斯特（英国） 曼彻斯特</option><option value="PIT">匹兹堡 匹兹堡机场</option><option value="WLG">威灵顿 惠灵顿</option><option value="YZY">张掖 张掖机场</option><option value="TXL">柏林 柏林泰格尔机场</option><option value="EDI">爱丁堡 爱丁堡</option><option value="CTA">卡坦尼亚 卡塔尼亚</option><option value="CLE">克利夫兰 克利夫兰机场</option><option value="YUL">蒙特里尔 蒙特利尔特鲁多机场</option><option value="PDX">波特兰 波特兰机场</option><option value="GLA">格拉斯哥 格拉斯哥</option><option value="HAM">汉堡 汉堡</option><option value="ROC">罗切斯特 罗切斯特机场</option><option value="ARN">斯德哥尔摩 阿兰达机场</option><option value="TLS">图卢兹 图卢兹</option><option value="IAH">休斯敦 休斯敦乔治布什机场</option><option value="IND">印第安纳波利斯 印第安纳波利斯机场</option><option value="optionN">米兰 米兰利纳特机场</option><option value="MXP">米兰 米兰马尔本萨机场</option><option value="PHL">费城 费城机场</option><option value="CPH">哥本哈根 哥本哈根</option><option value="RIC">里士满 里士满机场</option><option value="RMQ">台中（中国台湾） 台中清泉岗机场</option><option value="TPA">坦帕 坦帕机场</option><option value="VIE">维也纳 维也纳</option><option value="YOW">渥太华 渥太华</option><option value="MSY">新奥尔良 新奥尔良机场</option><option value="CVG">辛辛那提 辛辛那提机场</option><option value="AKU">阿克苏 温宿机场</option><option value="DEN">丹佛 丹佛机场</option><option value="YHZ">哈利法克斯 哈利法克斯</option><option value="BOD">波尔多 波尔多</option><option value="BUF">布法罗 布法罗机场</option><option value="YLW">基隆拿 基劳纳机场</option><option value="NTE">南特 南特</option><option value="SAT">圣安东尼奥（美国） 圣安东尼奥机场</option><option value="YIN">伊宁 伊宁机场</option><option value="IST">伊斯坦布尔 伊斯坦布尔</option><option value="DCA">华盛顿 罗纳德·里根机场</option><option value="BWI">巴尔的摩 巴尔的摩机场</option><option value="MCI">堪萨斯城 堪萨斯城</option><option value="NAP">那不勒斯 那不勒斯</option><option value="AUH">阿布扎比 阿布扎比</option><option value="CGD">常德 桃花源机场</option><option value="DUS">杜塞尔多夫 杜塞尔夫</option><option value="WAW">华沙 华沙</option><option value="FLL">劳特德尔堡 劳德尔堡机场</option><option value="MUC">慕尼黑 慕尼黑</option><option value="NCE">尼斯 尼斯</option><option value="SAV">萨凡纳 萨凡纳机场</option><option value="LED">圣彼得堡 圣彼得堡</option><option value="TUS">图森 图森机场</option><option value="ALG">阿尔及尔 阿尔及尔</option><option value="OAK">奥克兰（美国） 奥克兰大都会机场</option><option value="OSL">奥斯陆 奥斯陆</option><option value="BHM">伯明翰(美国) 伯明翰机场</option><option value="JUH">池州 九华山</option><option value="GOT">哥德堡 哥德堡</option><option value="HBA">霍巴特 霍巴特机场</option><option value="JXS">嘉兴 嘉兴火车站</option><option value="CBR">坎培拉 堪培拉</option><option value="BNA">纳什维尔 纳什维尔机场</option><option value="ZRH">苏黎世 苏黎世</option><option value="SYR">锡拉丘兹 锡拉丘兹机场</option><option value="CLT">夏洛特 夏洛特机场</option><option value="XUZ">徐州 观音机场</option><option value="PKX">北京 大兴机场</option><option value="PAR">巴黎 巴黎机场</option><option value="NYC">纽约 纽约机场</option><option value="EWR">纽约 纽瓦克自由机场</option><option value="NRT">东京 东京成田机场</option><option value="ROM">罗马 罗马</option><option value="YHM">多伦多 约翰·卡尔·芒罗哈密尔顿机场</option><option value="LGW">伦敦 伦敦盖特威克机场</option><option value="CHI">芝加哥 芝加哥机场</option><option value="ITM">大阪 伊丹机场</option><option value="MOW">莫斯科 莫斯科</option><option value="SEL">首尔 汉城</option><option value="ICN">首尔 首尔仁川</option><option value="DTT">底特律 底特律机场</option><option value="WAS">华盛顿 华盛顿机场</option><option value="ORL">奥兰多 奥兰多赫登机场</option><option value="JKT">雅加达 雅加达</option><option value="MIL">米兰 米兰</option><option value="BER">柏林 柏林</option><option value="STO">斯德哥尔摩 斯德哥尔摩</option><option value="HOU">休斯敦 休斯顿机场</option><option value="MKC">堪萨斯城 堪萨斯城机场</option><option value="BFS">贝尔法斯特 贝尔法斯特</option><option value="ABI">阿比林 阿比林地方机场</option><option value="ABJ">阿比让 阿比让</option><option value="ABR">阿伯丁(美国) 阿伯丁地方机场</option><option value="ABZ">阿伯丁(英国) 蒂瑟机场</option><option value="ABQ">阿布奎基 阿尔伯克基机场</option><option value="ADL">阿德莱德 阿德莱德 </option><option value="ACV">阿卡塔 阿克塔机场</option><option value="ACC">阿克拉 阿克拉</option><option value="AJU">阿拉卡茹 阿拉卡茹机场</option><option value="AAT">阿勒泰 阿勒泰机场</option><option value="POA">阿雷格里港 萨尔加多－费尔霍机场</option><option value="ALC">阿利坎特 阿利坎特</option><option value="AUA">阿鲁巴 阿鲁巴</option><option value="ABE">阿伦敦(宾夕法尼亚，美国) 阿伦敦</option><option value="AMA">阿马里略 阿马里洛机场</option><option value="ARM">阿米代尔 阿米代尔机场</option><option value="AAQ">阿纳帕 阿纳帕机场</option><option value="ATW">阿普雷顿 奥塔加米郡机场</option><option value="AVL">阿什维尔 阿什维尔地区机场</option><option value="ASF">阿斯特拉罕 阿斯特拉罕机场</option><option value="AVN">阿维尼翁 阿维尼翁</option><option value="AJA">阿雅克肖 阿雅克肖</option><option value="IDA">爱达福尔斯 凡宁机场</option><option value="IMT">艾恩芒廷 福德机场</option><option value="BOG">波哥大 埃尔多拉多机场</option><option value="EKO">埃尔科 埃尔科机场</option><option value="ELP">埃尔帕索 埃尔.帕索机场</option><option value="AYQ">艾尔斯岩 康内尔兰机场</option><option value="EXT">埃克塞特 埃克塞特机场</option><option value="ASP">爱丽斯泉 艾丽斯斯普林斯机场</option><option value="EVN">埃里温 埃里温</option><option value="EMD">埃默拉尔德 埃默拉尔德机场</option><option value="EVV">埃文斯维尔 德雷斯地区机场</option><option value="ONT">安大略 安大略机场</option><option value="ANC">安克雷奇 安克雷奇机场</option><option value="AOI">安科纳 安科纳</option><option value="AMM">安曼 安曼</option><option value="ANR">安特卫普 安特卫普</option><option value="PVR">巴亚尔塔港 奥达兹</option><option value="ALB">奥尔巴尼 奥尔巴尼机场</option><option value="AAL">奥尔堡 奥尔堡机场</option><option value="ABX">奥尔伯里 奥尔伯里机场</option><option value="AGS">奥古斯塔（美国） 安马赫夏利克机场</option><option value="OMA">奥马哈 奥马哈机场</option><option value="BPL">博乐 博乐机场</option><option value="BCI">巴卡尔丁 巴卡尔丁机场</option><option value="PMO">巴勒莫 巴勒莫机场</option><option value="BRI">巴里 巴里</option><option value="BAH">巴林 巴林</option><option value="VLC">巴伦西亚（西班牙） 巴伦西亚</option><option value="BKO">巴马科 巴马科</option><option value="PTY">巴拿马 巴拿马城</option><option value="BSL">巴塞尔 巴塞尔</option><option value="BIA">巴斯蒂亚 巴斯蒂亚</option><option value="BTR">巴吞鲁日 瑞安机场</option><option value="BSB">巴西利亚 巴西利亚机场</option><option value="RLK">巴彦淖尔 巴彦淖尔</option><option value="BGF">班吉 班吉</option><option value="CRK">邦板牙 克拉克国际机场</option><option value="BDB">邦达伯格 邦达伯格机场</option><option value="BGR">邦哥尔 班戈机场</option><option value="BUR">伯班克 鲍勃霍普机场</option><option value="BEG">贝尔格莱德 贝尔格莱德机场</option><option value="BGO">卑尔根 卑尔根</option><option value="KKJ">北九州 北九州机场</option><option value="BEY">贝鲁特 贝鲁特</option><option value="BIO">毕尔巴鄂 毕尔巴鄂</option><option value="PEE">彼尔姆 彼尔姆机场</option><option value="BIL">比灵斯 比灵斯机场</option><option value="ZBL">比洛威拉 比洛威拉机场</option><option value="PSA">比萨 比萨机场</option><option value="BIS">俾斯麦 俾斯麦机场</option><option value="BTM">比尤特 比尤特机场</option><option value="BGM">宾厄姆顿 宾厄姆顿机场</option><option value="PUF">波城 波城</option><option value="PIH">波卡特洛 波卡特咯机场</option><option value="BLQ">博洛尼亚 博洛尼亚</option><option value="BPT">波蒙特 杰弗逊郡机场</option><option value="BON">博奈尔 波那里</option><option value="BOI">博伊西 博伊西机场（戈文菲尔德）</option><option value="BZN">博兹曼 加拉丁机场</option><option value="BUD">布达佩斯 布达佩斯</option><option value="BUH">布加勒斯特 布加勒斯特</option><option value="OTP">布加勒斯特 布加勒斯特奥托佩尼机场</option><option value="BZV">布拉柴维尔 布拉柴维尔</option><option value="BKQ">布莱科尔 布莱科尔机场</option><option value="BRO">布朗斯维尔 南帕德雷岛机场</option><option value="BES">布勒斯特 布雷斯特</option><option value="BRS">布里斯托 布里斯托尔</option><option value="BDS">布林迪西 布林迪西</option><option value="BRU">布鲁塞尔 布鲁塞尔机场</option><option value="BJM">布琼布拉 宝针宝拉</option><option value="BUE">布宜诺斯艾利斯 布宜诺斯艾利斯</option><option value="AEP">布宜诺斯艾利斯 乔治纽博利机场</option><option value="EZE">布宜诺斯艾利斯 米尼斯特罗－皮斯塔里尼机场</option><option value="KUH">钏路 钏路</option><option value="CWJ">沧源 佤山</option><option value="CHS">查尔斯顿 查尔斯顿机场</option><option value="CTL">查理维尔 查理维尔机场</option><option value="CHA">查塔努加 查塔努加机场</option><option value="OBO">带广 带广</option><option value="DBO">达博市 达博机场</option><option value="YQU">大草原城 大普雷里机场</option><option value="DRW">达尔文 达尔文机场</option><option value="OIT">大分 大分</option><option value="GFK">大福克斯 大福克斯机场</option><option value="GRR">大急流城 肯特郡机场</option><option value="DKR">达喀尔 达喀尔机场</option><option value="DMM">达曼 法赫德国王机场</option><option value="GTF">大瀑布村 大瀑布村机场</option><option value="DAY">代顿 代顿机场</option><option value="DAB">代托纳比奇 代托纳比奇</option><option value="DYN">丹阳 丹阳火车站</option><option value="DUR">德班 路易斯波萨机场</option><option value="DRS">德累斯顿 德累斯顿机场</option><option value="DLH">德卢斯 德卢斯机场</option><option value="DSM">得梅因 得梅因机场</option><option value="DPO">德文波特 德文波特机场</option><option value="DBQ">迪比克 迪比克地方机场</option><option value="TBS">第比利斯 第比利斯</option><option value="DIK">迪克森 迪金森机场</option><option value="TRS">的里瓦斯特 的里雅斯特机场</option><option value="TSR">蒂米什瓦拉 蒂米什瓦拉</option><option value="DUB">都柏林 都柏林</option><option value="DLA">杜阿拉 杜阿拉</option><option value="DRO">杜兰戈（美国） 拉普拉塔机场</option><option value="TRN">都灵 都灵</option><option value="DHN">多森 多森机场</option><option value="OKC">俄克拉何马 俄克拉荷马城机场</option><option value="EBB">恩德培 恩德培</option><option value="ERL">二连浩特 赛乌素机场</option><option value="FAR">法戈 赫克特尔机场</option><option value="FDF">法兰西堡 法兰西堡</option><option value="FAY">费耶特维尔 费耶特维尔地方机场</option><option value="XNA">费耶特维尔 费耶特维尔机场</option><option value="FYV">费耶特维尔 费耶特维尔地方机场</option><option value="FLR">佛罗伦斯 佛罗伦萨</option><option value="FKS">福岛 福岛</option><option value="VOG">伏尔加格勒 伏尔加格勒机场</option><option value="PQC">富国岛 杜恩当</option><option value="MLH">弗赖堡 米卢斯机场</option><option value="FAT">弗雷斯诺 弗雷斯诺航空终点站</option><option value="FNT">弗林特 毕晓普机场</option><option value="YKA">甘露市 坎卢普斯机场</option><option value="GRI">格兰德艾兰 格兰德岛机场</option><option value="GNB">格勒洛布尔 格勒诺布尔</option><option value="KGL">基加利 格雷格尔－凯伊班达机场</option><option value="GRB">格林贝 奥斯丁－斯特劳贝尔机场</option><option value="GSO">格林斯伯勒 格林斯泊勒机场</option><option value="GSP">格林维尔 格林维尔 - 斯巴达堡</option><option value="CAE">哥伦比亚(南卡罗来纳，美国) 哥伦比亚大都会机场</option><option value="COU">哥伦比亚(密苏里，美国) 哥伦比亚地区机场</option><option value="GLT">格伦德斯通 格拉德斯通机场</option><option value="GYU">固原 六盘山机场</option><option value="GDL">瓜达拉哈拉 瓜达拉哈拉</option><option value="GYE">瓜亚基尔 瓜亚及尔</option><option value="KWJ">光州 光州机场</option><option value="GMQ">果洛 果洛</option><option value="GBE">哈博罗内 哈博罗内</option><option value="HRE">哈拉雷 哈拉雷机场</option><option value="MDT">哈里斯堡 哈里斯堡机场</option><option value="HAR">哈里斯堡 哈里斯堡机场</option><option value="HRL">哈灵顿 瓦雷机场</option><option value="HTI">哈密尔顿岛 哈密尔顿岛机场</option><option value="BDL">哈特福德 哈特福德机场</option><option value="HFD">哈特福德 哈特福德</option><option value="HAV">哈瓦那 哈瓦那何塞·马蒂机场</option><option value="HLN">海伦娜 海伦娜机场</option><option value="HKD">函馆 函馆机场</option><option value="HAJ">汉诺威 汉诺威</option><option value="LDH">豪勋爵岛 豪勋爵岛机场</option><option value="HEL">赫尔辛基 赫尔辛基</option><option value="HVB">赫维湾 赫维湾机场</option><option value="PHE">黑德兰港 黑德兰港机场</option><option value="HSV">亨茨维尔 亨茨维尔机场</option><option value="TGU">洪都拉斯 特古西加尔巴</option><option value="SJO">圣何塞（哥斯达黎加） 胡安－圣玛利亚机场</option><option value="HNA">花卷 花卷机场</option><option value="ALO">滑铁卢 滑铁卢机场</option><option value="HTT">花土沟 花土沟</option><option value="ZQN">皇后镇 弗兰克敦机场</option><option value="OOL">黄金海岸 黄金海岸</option><option value="WAY">怀阿拉 怀阿拉机场</option><option value="HUZ">惠州 惠州机场</option><option value="YNY">江原道 襄阳</option><option value="JIB">吉布提 吉布提</option><option value="JED">吉达 吉达</option><option value="UIO">基多 基多</option><option value="IEV">基辅 基辅</option><option value="KBP">基辅 波里斯珀尔机场</option><option value="RUN">圣丹尼斯德拉瑞乌尼翁 吉罗特机场</option><option value="YKF">基奇纳 基奇纳机场</option><option value="KIS">基苏木 基苏木机场</option><option value="EYW">基韦斯特 基韦斯特机场</option><option value="GCK">加登城 加登城地方机场</option><option value="CWL">加地夫 加的夫</option><option value="CCS">加拉加斯 西蒙－玻利瓦尔机场</option><option value="KGD">加里宁格勒 加里宁格勒机场</option><option value="GIZ">贾赞 贾赞机场</option><option value="JAC">杰克逊 杰克逊－霍勒机场</option><option value="JAX">杰克逊维尔 杰克逊维尔机场</option><option value="MAA">金奈 晨奈机场</option><option value="FIH">金沙萨 内德吉里机场</option><option value="KIN">金斯敦 金斯敦</option><option value="JDZ">景德镇 罗家机场</option><option value="JIU">九江 庐山机场</option><option value="KLO">卡利博 卡利博</option><option value="KGI">卡尔古利 尔古利-博尔德机场</option><option value="OGG">卡胡卢伊 卡胡卢伊机场</option><option value="AZO">卡拉马祖 巴特尔克里克机场</option><option value="KTA">卡拉特哈 卡拉特哈机场</option><option value="CAG">卡利亚里 卡利亚里</option><option value="FTE">埃尔卡拉法特 埃尔卡拉法特机场</option><option value="CAS">卡萨布兰卡 卡萨布兰卡</option><option value="CMN">卡萨布兰卡 穆罕默德机场</option><option value="CPR">卡斯柏 卡斯珀机场</option><option value="KJH">凯里 黄平机场</option><option value="CAI">开罗 开罗</option><option value="CPT">开普敦 开普敦机场</option><option value="CUN">坎昆 坎昆机场</option><option value="optionH">考爱岛 考爱岛机场</option><option value="CGN">科隆 考尔恩/波恩机场</option><option value="KRK">克拉科夫 克拉科夫机场</option><option value="KRY">克拉玛依 克拉玛依</option><option value="KRR">克拉斯诺达尔 克拉斯诺达机场</option><option value="CFE">克勒蒙菲朗 克莱蒙费朗</option><option value="QRO">克雷塔罗 奎雷塔罗机场</option><option value="CLJ">克鲁日 纳珀卡机场</option><option value="COS">科罗拉多斯普林斯 科罗拉多斯普林斯机场</option><option value="CKY">科纳克里 科纳克里</option><option value="CRP">科珀斯科里斯蒂 科珀斯科里斯蒂机场</option><option value="CZM">科苏梅尔 科苏美尔机场</option><option value="COO">科托努 科托努</option><option value="KWI">科威特 科威特</option><option value="ROR">科罗尔 埃莱机场</option><option value="KCA">库车 龟兹机场</option><option value="MRV">矿水城 矿水城机场</option><option value="YQB">魁北克 魁北克</option><option value="LCX">连城 冠豸山</option><option value="LFQ">临汾 临汾</option><option value="LBA">利兹 利兹布拉德福德国际机场</option><option value="RBA">拉巴特 拉巴特</option><option value="LBB">拉伯克 拉伯克机场</option><option value="LFT">拉斐特 拉菲特地区机场</option><option value="LOS">拉各斯 拉各斯</option><option value="LRD">拉雷多 拉雷多机场</option><option value="SUF">拉默齐亚 拉默齐亚机场</option><option value="LCA">拉纳卡 拉纳卡机场</option><option value="RAP">拉皮德城 拉皮德城地区机场</option><option value="LAO">拉瓦格 拉瓦格机场</option><option value="BJX">莱昂(墨西哥) 德尔巴乔机场</option><option value="LCH">莱克查尔斯 莱克查尔斯地方机场</option><option value="RHI">莱茵兰德 奥涅达郡机场</option><option value="JMJ">澜沧 景迈机场</option><option value="RHE">兰斯 兰斯机场</option><option value="LAN">兰辛 首都城机场</option><option value="LRE">朗里奇机场 朗里奇机场</option><option value="LST">朗斯斯顿 朗塞斯顿机场</option><option value="GGG">朗维尤 朗维尤机场</option><option value="LAW">劳顿 劳顿地方机场</option><option value="RDM">雷德蒙德 雷德蒙城市机场</option><option value="RDD">雷丁 雷丁机场</option><option value="RNS">雷恩 雷恩</option><option value="RNO">雷诺 雷诺机场</option><option value="REC">累西腓 瓜拉拉佩斯国际机场</option><option value="LBV">利伯维尔 利伯维尔</option><option value="optionL">里尔 里尔</option><option value="LEA">利尔蒙斯 利尔蒙斯机场</option><option value="YQR">里贾纳 里贾纳</option><option value="RIX">里加湾 里加</option><option value="LLW">利隆圭 利隆圭</option><option value="optionM">利马 利马</option><option value="RSU">丽水 丽水机场</option><option value="optionS">里斯本 里斯本</option><option value="RUH">利雅得 利雅得</option><option value="RIO">里约热内卢 里约热内卢</option><option value="LEX">列克星敦 列克星敦机场</option><option value="PLO">林肯港 林肯港机场</option><option value="LZY">林芝 林芝米林机场</option><option value="LNL">陇南 成县机场</option><option value="FBM">卢本巴希 卢阿诺机场</option><option value="LJU">卢布尔雅那 卢布尔雅那</option><option value="YDF">鹿湖 迪尔湖机场</option><option value="LUN">卢萨卡 卢萨卡机场</option><option value="LUX">卢森堡 卢森堡</option><option value="RTM">鹿特丹 鹿特丹</option><option value="SDF">路易斯维尔 路易斯维尔机场</option><option value="YXU">伦敦(加拿大) 加拿大伦敦机场</option><option value="ROA">罗阿诺克 罗阿诺克地方机场</option><option value="LAD">罗安达 罗安达</option><option value="ROK">罗夫汉普顿 罗克汉普顿机场</option><option value="LRT">洛里昂 罗里昂</option><option value="LFW">洛美 洛美</option><option value="ROT">罗托鲁阿 罗托鲁阿机场</option><option value="WMT">茅台 茅台</option><option value="IOM">马恩岛 罗纳尔兹威机场</option><option value="MQT">马凯特 绍亚尔机场</option><option value="SSG">马拉博 马拉博</option><option value="AGP">马拉加 马拉加</option><option value="RAK">马拉喀什 马拉喀什</option><option value="PMI">马洛卡岛帕尔马 马洛卡岛帕尔马机场</option><option value="MAO">马瑙斯 埃杜阿多戈梅斯机场</option><option value="MPM">马普托 马普托</option><option value="MZT">马萨特兰 拉法尔布埃尔纳将军机场</option><option value="MRS">马赛 马赛</option><option value="MSN">麦迪逊 达内郡地区机场</option><option value="FMY">迈尔斯堡 迈尔斯堡</option><option value="RSW">迈尔斯堡 迈尔斯堡机场</option><option value="MKY">麦凯 麦凯机场</option><option value="YMM">麦克默里堡 马克马里堡机场</option><option value="PQQ">麦夸里港 麦夸里港机场</option><option value="MOT">迈诺特 米诺机场</option><option value="MHT">曼彻斯特（美国） 曼彻斯特地方机场</option><option value="ZLO">曼萨尼约 曼萨尼约机场</option><option value="ISA">芒特艾萨 芒特艾萨机场</option><option value="MRU">毛里求斯 毛里求斯</option><option value="MFR">梅德福 梅德福机场</option><option value="ETZ">梅斯 梅斯</option><option value="MLU">门罗 门罗地方机场</option><option value="MPL">蒙彼利埃 蒙特利尔</option><option value="MEM">孟菲斯 孟菲斯机场</option><option value="MGM">蒙哥玛利 蒙哥马利机场</option><option value="YQM">蒙克顿 蒙克顿机场</option><option value="BOM">孟买 孟买</option><option value="MRY">蒙特雷（美国） 蒙特雷机场</option><option value="MTY">蒙特雷（墨西哥） 蒙特雷</option><option value="MAF">米德兰 敖德萨地区机场</option><option value="MKE">密尔沃基 密尔沃基机场</option><option value="MSO">米苏拉 米苏拉机场</option><option value="MOB">莫比尔 莫比尔机场</option><option value="POM">莫勒斯比港 莫尔兹比港</option><option value="MLM">莫雷利亚 莫雷利亚机场</option><option value="MEI">默里迪恩 凯机场</option><option value="Moption">莫林 库阿德城机场</option><option value="MEX">墨西哥城 墨西哥城</option><option value="NAS">拿骚 拿骚</option><option value="SOU">南安普顿 南安普敦</option><option value="SBN">南本德 南本德地区机场</option><option value="NAN">楠迪 南迪机场</option><option value="APL">楠普拉 卢姆波机场</option><option value="NTG">南通 兴东机场</option><option value="NBO">内罗毕 焦莫肯亚塔机场</option><option value="NIM">尼亚美 尼亚美</option><option value="TTJ">鸟取 鸟取机场</option><option value="PHF">纽波特纽斯 纽波特纽斯/威廉姆斯堡机场</option><option value="NCL">纽卡斯尔（英国） 纽卡斯尔</option><option value="NTL">纽卡斯尔 纽卡斯尔机场</option><option value="NUE">纽伦堡 纽伦堡</option><option value="ZNE">纽曼 纽曼机场</option><option value="NOU">努美阿 努美阿机场</option><option value="ORF">诺克福 诺福克机场</option><option value="TYS">诺克斯维尔 诺克斯维尔机场</option><option value="NWI">诺里奇 诺里奇</option><option value="PZI">攀枝花 保安营机场</option><option value="PGF">佩皮尼昂 佩皮尼昂</option><option value="PNS">彭萨科拉 彭萨科拉地区机场</option><option value="PIA">皮欧里亚 格雷特尔－皮奥里斯</option><option value="PER">珀斯 珀斯</option><option value="PBC">普埃布拉 韦约钦格机场</option><option value="ZAG">萨格勒布 普雷索机场</option><option value="PVD">普罗维登斯 普罗维登斯机场</option><option value="PIS">普瓦捷 比亚德机场</option><option value="JRO">乞力马扎罗 乞力马扎罗山机场</option><option value="HBQ">祁连县 祁连机场</option><option value="CUU">奇瓦瓦 根费罗－维拉罗博斯机场</option><option value="GGT">乔治敦（巴哈马） 伊苏马机场</option><option value="YXS">乔治王子城 乔治皇子城机场</option><option value="BPE">秦皇岛 秦皇岛</option><option value="CJJ">清州 清州</option><option value="JJN">泉州 晋江机场</option><option value="GOA">热那亚 热亚那</option><option value="RKZ">日喀则 日喀则和平机场</option><option value="GVA">日内瓦 日内瓦</option><option value="SQJ">三明 沙县</option><option value="QSZ">莎车 莎车机场</option><option value="YSQ">松原 查干湖</option><option value="SZG">萨尔斯堡 萨尔斯堡</option><option value="SSA">萨尔瓦多（巴西） 路易斯－马加尔哈斯机场</option><option value="MBS">萨吉诺 特里城机场</option><option value="ZCL">萨卡特卡斯 拉卡勒拉机场</option><option value="SMF">萨克拉门托 萨克拉门托大都会机场</option><option value="SAC">萨克拉门托 伊克塞尤提夫机场</option><option value="SRQ">萨拉索塔 不拉登顿机场</option><option value="KUF">萨马拉 库鲁莫奇机场</option><option value="YXE">萨斯卡通 萨斯卡温</option><option value="YQT">桑德贝 桑德贝</option><option value="ZNZ">桑给巴尔岛 桑给巴尔机场</option><option value="SQD">上饶 三清山机场</option><option value="WGN">邵阳 邵阳武冈机场</option><option value="BRC">圣卡洛斯.德巴里洛切 圣卡洛斯.德巴里洛切机场</option><option value="SHV">什里夫波特 什里夫波特地区机场</option><option value="SJT">圣安吉洛 马希斯机场</option><option value="SNA">圣安哪 约翰维纳机场</option><option value="SAO">圣保罗 圣保罗</option><option value="GRU">圣保罗 瓜鲁尔霍斯机场</option><option value="SCL">圣地亚哥（智利） 阿图罗梅里诺－博尼特兹机场</option><option value="SAF">圣菲（美国） 圣菲机场</option><option value="SJC">圣何塞（美国） 圣何塞</option><option value="SRZ">圣克鲁斯 特洛姆皮罗机场</option><option value="STL">圣路易斯（美国） 圣路易斯</option><option value="SBP">圣路易斯奥比斯波 圣路易斯 - 奥比斯波县机场</option><option value="STS">圣罗萨 圣罗莎机场</option><option value="SGU">圣乔治（美国） 圣乔治地方机场</option><option value="SAL">圣萨尔瓦多 圣萨尔瓦多</option><option value="YXJ">圣约翰 圣约翰堡机场</option><option value="YYT">圣约翰斯 圣约翰斯机场</option><option value="SHF">石河子 石河子花园机场</option><option value="FSM">史密斯堡 史密斯堡地方机场</option><option value="WDS">十堰 武当山机场</option><option value="GEG">斯波坎 斯波坎机场</option><option value="BWN">斯里巴加湾 斯里巴加湾</option><option value="SUB">泗水（苏腊巴亚） 朱安达机场</option><option value="SVG">斯塔万格 斯塔文格</option><option value="SXB">斯特拉斯堡 斯特拉斯堡</option><option value="STR">斯图加特 斯图加特</option><option value="SUX">苏城 苏城门户机场</option><option value="FSD">苏福尔斯 苏福尔斯地区机场（约佛斯机场）</option><option value="CIU">苏圣玛丽（美国） 奇波瓦郡机场</option><option value="CEB">宿务 宿雾岛</option><option value="SOF">索菲亚 索非亚</option><option value="AER">索契 阿德列尔/索契机场</option><option value="TUL">塔尔萨 塔尔萨机场</option><option value="TLH">塔拉哈西 塔拉哈西机场</option><option value="TMW">塔姆沃思 塔姆沃思机场</option><option value="TAS">塔什干 伏斯托奇尼机场</option><option value="TNN">台南（中国台湾） 台南机场</option><option value="TSV">汤斯维尔 汤斯维尔</option><option value="TXK">特克萨卡纳 特克萨卡纳地方机场</option><option value="TVC">特拉弗斯城 特拉弗斯城机场</option><option value="TLV">特拉维夫雅法 特拉维夫</option><option value="REL">特雷利乌 特雷利乌机场</option><option value="TRD">特隆赫姆 特隆赫姆</option><option value="TWF">特温福尔斯 特温福尔斯城郡机场</option><option value="TUF">图尔 圣希姆佛里恩机场</option><option value="TLQ">吐鲁番 交河机场</option><option value="TLN">土伦 土伦</option><option value="TUN">突尼斯 突尼斯</option><option value="TOL">托莱多（美国） 伊克斯普雷斯机场</option><option value="TRC">托雷翁 托雷翁机场</option><option value="UCB">乌兰察布 集宁</option><option value="WUT">五台山 五台山</option><option value="VPS">瓦尔帕莱索 瓦尔顿堡比齐机场</option><option value="OUA">瓦加杜古 瓦加杜古</option><option value="GUA">危地马拉城 危地马拉</option><option value="YYJ">维多利亚（加拿大） 维多利亚</option><option value="FWA">韦恩堡 韦恩堡</option><option value="VNO">维尔纽斯 威尔纽斯</option><option value="VGO">维哥 维哥机场</option><option value="ACT">韦科 韦科地方机场</option><option value="ISN">威利斯顿 斯罗灵菲尔德机场</option><option value="VRN">维罗纳 维罗纳机场</option><option value="VCE">威尼斯 威尼斯</option><option value="ICT">威奇托 米德康提嫩特机场</option><option value="WDH">温得和克 温得和克</option><option value="GUM">关岛 文帕特机场</option><option value="WGA">沃加沃加 沃加沃加机场</option><option value="UFA">乌法 乌法机场</option><option value="USH">乌斯怀亚 伊斯拉斯－马尔维纳斯机场</option><option value="WUZ">梧州 梧州西江机场</option><option value="HIB">希宾 奇绍尔姆机场</option><option value="CID">锡达拉皮兹 锡达拉皮兹机场</option><option value="PBI">西棕榈滩 西棕榈滩机场</option><option value="YYG">夏洛特敦 夏洛特城机场</option><option value="SDJ">仙台 仙台</option><option value="optionT">小石城 小石城机场</option><option value="EWN">新伯尔尼 西蒙斯诺特机场</option><option value="SIP">辛菲罗波尔 辛菲罗波尔</option><option value="XAI">信阳市 信阳明港机场</option><option value="KMJ">熊本 熊本机场</option><option value="ASU">亚松森 希尔维奥－佩提罗西机场</option><option value="YAO">雅温得 雅温得机场</option><option value="CXR">芽庄 卡姆拉恩机场</option><option value="NHA">芽庄 芽庄机场</option><option value="MCY">阳光海岸 阳光海岸机场</option><option value="YTY">扬州 扬州机场</option><option value="YZF">耶洛奈夫 耶洛奈夫机场</option><option value="IKT">伊尔库茨克 伊尔库茨克</option><option value="PLZ">伊丽莎白港 伊丽莎白港机场</option><option value="INV">因弗内斯 因弗内斯</option><option value="EUG">尤金 柳真机场</option><option value="UBJ">宇部 宇部</option><option value="JNB">约翰内斯堡 约翰内斯堡</option><option value="ZUJ">镇江 镇江火车站</option><option value="ZHY">中卫 沙坡头机场</option><option value="FPO">自由港 格兰德巴哈马机场</option><option value="TRI">布里斯托尔 三城机场</option><option value="BAR">琼海 博鳌机场</option>
+        </select>
+        </div>
+        </fieldset>
+        <div class="one"><input class="one" type="submit" data-inline="true" value="Go" onclick="return goclick()"></div>
+    </form>
+</div>
+<p class="title">Reptile for ceair</p>
+<p class="index">实时抓取东航航线3D模型</p>
+<script type="text/javascript">
+function goclick() {
+    alert("正在爬取,整个过程大约10s,请稍等(￣▽￣)~*");
+    }
+
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+
+$.getJSON('./static/flights.json', function (data) {
+    var airports = data.airports.map(function (item) {
+        return {
+            coord: [item[3], item[4]]
+        }
+    });
+    function getAirportCoord(idx) {
+        return [data.airports[idx][3], data.airports[idx][4]];
+    }
+
+    // Route: [airlineIndex, sourceAirportIndex, destinationAirportIndex]
+    var routesGroupByAirline = {};
+    data.routes.forEach(function (route) {
+        var airline = data.airlines[route[0]];
+        var airlineName = airline[0];
+        if (!routesGroupByAirline[airlineName]) {
+            routesGroupByAirline[airlineName] = [];
+        }
+        routesGroupByAirline[airlineName].push(route);
+    });
+
+    var pointsData = [];
+    data.routes.forEach(function (airline) {
+        pointsData.push(getAirportCoord(airline[1]));
+        pointsData.push(getAirportCoord(airline[2]));
+    });
+
+    var series = data.airlines.map(function (airline) {
+        var airlineName = ['China Eastern Airlines'];
+        var routes = routesGroupByAirline[airlineName];
+        //console.log(airlineName);
+        if (!routes) {
+            return null;
+        }
+        return {
+            type: 'lines3D',
+            name: airlineName,
+
+            effect: {
+                show: true,
+                trailWidth: 2,
+                trailLength: 0.15,
+                trailOpacity: 0.3,
+                trailColor: 'white'
+            },
+
+            lineStyle: {
+                width: 1,
+                //color: 'rgb(50, 50, 150)',
+                color: 'black',
+                opacity: 0.05
+            },
+            blendMode: 'lighter',
+
+            data: routes.map(function (item) {
+                return [airports[item[1]].coord, airports[item[2]].coord];
+            })
+        };
+    }).filter(function (series) {
+        return !!series;
+    });
+    series.push({
+        type: 'scatter3D',
+        coordinateSystem: 'globe',
+        blendMode: 'lighter',
+        symbolSize: 2,
+        itemStyle: {
+            color: 'red',
+            opacity: 0.5
+        },
+        data: pointsData
+    });
+    myChart.setOption({
+        legend: {
+            selectedMode: 'single',
+            left: 'left',
+            data: Object.keys(routesGroupByAirline),
+            orient: 'vertical',
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        globe: {
+
+            environment: './static/starfield.jpg',
+            baseTexture: './static/world.topo.bathy.200401.jpg',
+            heightTexture: './static/bathymetry_bw_composite_4k.jpg',
+
+            displacementScale: 0.1,
+            shading: 'realistic',
+            displacementQuality: 'high',
+
+            //baseColor: '#000',
+
+            shading: 'realistic',
+            realisticMaterial: {
+                roughness: 0.2,
+                metalness: 0
+            },
+
+            postEffect: {
+                enable: true,
+                depthOfField: {
+                    enable: false,
+                    focalDistance: 200
+                }
+            },
+            temporalSuperSampling: {
+                enable: true
+            },
+            light: {
+                ambient: {
+                    intensity: 0
+                },
+                main: {
+                    intensity: 0.1,
+                    shadow: true
+                },
+                ambientCubemap: {
+                    texture: './static/lake.hdr',
+                    exposure: 1,
+                    diffuseIntensity: 0.5,
+                    specularIntensity: 2
+                }
+            },
+            viewControl: {
+                autoRotate: true
+            },
+            silent: true
+        },
+        series: series
+    });
+    window.addEventListener('keydown', function () {
+        series.forEach(function (series, idx) {
+            myChart.dispatchAction({
+                type: 'lines3DToggleEffect',
+                seriesIndex: idx
+            });
+        })
+    });
+});
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+</script>
+</body>
+</html>

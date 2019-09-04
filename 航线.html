@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <title>共爬取到{{len(list1)}}条航线</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=S0m0FgYzW7CnV8QpTmbGUrqai8g0XgjF"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="allmap" style="position:absolute;top:0px;height:100%;width: 100%"></div>
+<script type="text/javascript">
+	var map = new BMap.Map("allmap");
+	map.centerAndZoom(new BMap.Point({{now}}), 6);
+	map.enableScrollWheelZoom();                         //启用滚轮放大缩小
+<!--	map.addEventListener("click",function(e){-->
+<!--        {% for item in inf.keys() %}-->
+<!--            if(e.point.lng == {{ item.split(',')[0]}} && e.point.lat == {{ item.split(',')[1] }}){-->
+<!--                alert({{ inf[item] }});-->
+<!--            }-->
+<!--        {% end %}-->
+<!--	});-->
+
+
+<!--	var sy = new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW, {-->
+<!--        scale: 0.6,//图标缩放大小-->
+<!--        strokeColor:'#fff',//设置矢量图标的线填充颜色-->
+<!--        strokeWeight: '2',//设置线宽-->
+<!--    });-->
+<!--    var icons = new BMap.IconSequence(sy, '10', '30');-->
+    //离港
+    {% for item in list1 %}
+	    map.addOverlay(new BMap.Polyline([new BMap.Point({{now}}),new BMap.Point({{ escape(item[0]) }})], {strokeColor:"red", strokeWeight:4, strokeOpacity:0.1})); //创建直线对象
+	    var point = new BMap.Point({{ escape(item[0]) }});
+	    var opts = {
+	        position : point,    // 指定文本标注所在的地理位置
+<!--	        offset   : new BMap.Size(30, -30)    //设置文本偏移量-->
+	    }
+
+	    var label = new BMap.Label("{{ escape(str(item[1][0])) }}" + ",到达:" + "{{ escape(str(item[1][3])) }}",opts)
+	    label.setStyle({
+			 color : "red",
+			 fontSize : "12px",
+			 height : "20px",
+			 lineHeight : "20px",
+			 fontFamily:"微软雅黑"
+		 });
+	    map.addOverlay(label);
+
+    {% end %}
+    //入港
+    {% for item in list2 %}
+	    map.addOverlay(new BMap.Polyline([new BMap.Point({{ escape(item[0]) }}),new BMap.Point({{now}})], {strokeColor:"orange", strokeWeight:4, strokeOpacity:0.1})); //创建直线对象
+
+	    var point = new BMap.Point({{ escape(item[0]) }});
+	    var opts = {
+	        position : point,    // 指定文本标注所在的地理位置
+<!--	        offset   : new BMap.Size(30, -30)    //设置文本偏移量-->
+	    }
+
+	    var label = new BMap.Label("{{ escape(str(item[1][0])) }}" +",到达:" + "{{ escape(str(item[1][3])) }}",opts)
+	    label.setStyle({
+			 color : "red",
+			 fontSize : "12px",
+			 height : "20px",
+			 lineHeight : "20px",
+			 fontFamily:"微软雅黑"
+		 });
+	    map.addOverlay(label);
+    {% end %}
+	//自定义地图元素
+	var styleJson = [{
+                    'featureType': 'water',
+                    'elementType': 'all',
+                    'stylers': {
+                        'color': '#d1d1d1'
+                    }
+                }, {
+                    'featureType': 'land',
+                    'elementType': 'all',
+                    'stylers': {
+                        'color': '#f3f3f3'
+                    }
+                }, {
+                    'featureType': 'railway',
+                    'elementType': 'all',
+                    'stylers': {
+                        'visibility': 'off'
+                    }
+                }, {
+                    'featureType': 'highway',
+                    'elementType': 'all',
+                    'stylers': {
+                        'color': '#fdfdfd'
+                    }
+                }, {
+                    'featureType': 'highway',
+                    'elementType': 'labels',
+                    'stylers': {
+                        'visibility': 'off'
+                    }
+                }, {
+                    'featureType': 'arterial',
+                    'elementType': 'geometry',
+                    'stylers': {
+                        'color': '#fefefe'
+                    }
+                }, {
+                    'featureType': 'arterial',
+                    'elementType': 'geometry.fill',
+                    'stylers': {
+                        'color': '#fefefe'
+                    }
+                }, {
+                    'featureType': 'poi',
+                    'elementType': 'all',
+                    'stylers': {
+                        'visibility': 'off'
+                    }
+                }, {
+                    'featureType': 'green',
+                    'elementType': 'all',
+                    'stylers': {
+                        'visibility': 'off'
+                    }
+                }, {
+                    'featureType': 'subway',
+                    'elementType': 'all',
+                    'stylers': {
+                        'visibility': 'off'
+                    }
+                }, {
+                    'featureType': 'manmade',
+                    'elementType': 'all',
+                    'stylers': {
+                        'color': '#d1d1d1'
+                    }
+                }, {
+                    'featureType': 'local',
+                    'elementType': 'all',
+                    'stylers': {
+                        'color': '#d1d1d1'
+                    }
+                }, {
+                    'featureType': 'arterial',
+                    'elementType': 'labels',
+                    'stylers': {
+                        'visibility': 'off'
+                    }
+                }, {
+                    'featureType': 'boundary',
+                    'elementType': 'all',
+                    'stylers': {
+                        'color': '#fefefe'
+                    }
+                }, {
+                    'featureType': 'building',
+                    'elementType': 'all',
+                    'stylers': {
+                        'color': '#d1d1d1'
+                    }
+                }, {
+                    'featureType': 'label',
+                    'elementType': 'labels.text.fill',
+                    'stylers': {
+                        'color': '#999999'
+                    }
+                }]
+    map.setMapStyle({styleJson: styleJson })
+</script>
+</body>
+</html>
